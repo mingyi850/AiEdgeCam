@@ -13,6 +13,7 @@ cfg = __BASE
 # Settings used in Model.register()
 __BASE.MODEL_PATH = "MachineLearning/models/ssd_mobilenet_v2_coco/"
 __BASE.MODEL_NAME = "frozen_inference_graph.pb"
+__BASE.CONVERTED_MODEL_NAME = "frozen_inference_graph.pb.21.dlc"
 __BASE.MODEL_TAGS = {"Device": "peabody", "type": "mobilenetssd", "area": "iot", "version": "1.0"}
 __BASE.MODEL_DESCRIPTION = "MobileNet V2 SSD COCO 2018"
 

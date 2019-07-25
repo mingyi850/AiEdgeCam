@@ -13,6 +13,7 @@ cfg = __BASE
 # Settings used in Model.register()
 __BASE.MODEL_PATH = "MachineLearning/models/newHelmetDetection/"
 __BASE.MODEL_NAME = "model.dlc"
+__BASE.CONVERTED_MODEL_NAME = "model.dlc"
 __BASE.MODEL_TAGS = {"Device": "peabody", "type": "mobilenetssd", "area": "iot", "version": "1.0"}
 __BASE.MODEL_DESCRIPTION = "Helmet Detection"
 
@@ -25,12 +26,3 @@ __BASE.IMAGE_DESCRIPTION = "Helmet Detection module"
 
 # Settings used in deployment.json
 __BASE.MODULE_NAME = "Helmet_Detection"
-
-# Settings used in SnpeConverter.convert_tf_model()
-__BASE.MODEL_INPUT_NODE = ""
-__BASE.MODEL_INPUT_DIMS = ""
-__BASE.MODEL_OUTPUTS_NODES = []
-
-# Settings used in SnpeConverter API (TensorFlow / Caffe)
-__BASE.SNPECONVERTER_TYPE = "None"
-

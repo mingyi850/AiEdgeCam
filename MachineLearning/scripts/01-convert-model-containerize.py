@@ -1,6 +1,6 @@
 ##%% [markdown]
 # Copyright (c) Microsoft Corporation. All rights reserved.
- 
+
 # Licensed under the MIT License.
 #%% [markdown]
 # # Convert Model and Containerize
@@ -35,8 +35,8 @@ scripts_dir = os.path.join(current_dir, 'MachineLearning\\scripts') #Used to che
 src_dir = os.path.join(current_dir, 'MachineLearning\\src') #Used to cd to src (With all dependencies and files) when building container later on
 
 # Import model settings from current_config.py
-if ChangeDir(scripts_dir): 
-    from model_configs.current_config import cfg #cfg is a easyDict() type variable found in another file called current_config.py. It is a set of pre-loaded configurations 
+if ChangeDir(scripts_dir):
+    from model_configs.current_config import cfg #cfg is a easyDict() type variable found in another file called current_config.py. It is a set of pre-loaded configurations
     print('Model Path: {}' .format(cfg.MODEL_PATH))
     ChangeDir(current_dir)
 else:
@@ -49,12 +49,12 @@ Refer to README.md for more detail.' .format(scripts_dir))
 
 #%% [markdown]
 # ## Connect Workspace
-# 
+#
 
 #%%
-#Initialize Workspace 
+#Initialize Workspace
 from azureml.core import Workspace
-ws = Workspace.from_config() #from_config() pulls up config file in directory and finds details of ML workspace 
+ws = Workspace.from_config() #from_config() pulls up config file in directory and finds details of ML workspace
 
 print('workspace information:')
 print(ws.name, ws.resource_group, ws.location, ws.subscription_id, sep = '\n')
@@ -76,8 +76,8 @@ print('model information:')
 print(model.name, model.url, model.version, model.id, model.created_time)
 
 #%% [markdown]
-# ## Convert Model to SNPE DLC type from TensorFlow or other model. Edge Cam runs Qualcomm chip which uses 
-#Snapdragon Processing Engine (SNPE)
+# ## Convert Model to SNPE DLC type from TensorFlow or other model. Edge Cam runs Qualcomm chip which uses
+#Snapdragon Processing Engine (SNPE) so requires Neural Network to be in SNPE format??
 #%%
 from azureml.contrib.iot.model_converters import SnpeConverter
 
@@ -121,7 +121,7 @@ converted_model = compile_request.result
 
 print('converted_model information:')
 print(converted_model.name, converted_model.url, converted_model.version, converted_model.id, converted_model.created_time)
-
+cfg.CONVERTED_MODEL_NAME = converted_model.name
 #%% [markdown]
 # ## Build Container Image
 
@@ -137,16 +137,16 @@ print('src directory: {}'.format(os.getcwd() ))
 #Set image configuration based on dependencies and AI Camera hardware
 image_config = IotContainerImage.image_configuration(
                                  architecture="arm32v7",
-                                 execution_script="main.py", 
+                                 execution_script="main.py",
                                  dependencies=["camera.py","iot.py","ipcprovider.py","utility.py", "frame_iterators.py"],
-                                 docker_file="Dockerfile", 
+                                 docker_file="Dockerfile",
                                  tags = cfg.IMAGE_TAGS,
                                  description = cfg.IMAGE_DESCRIPTION)
-#create image on AML Workspace to be loaded onto device 
+#create image on AML Workspace to be loaded onto device
 image = Image.create(name = cfg.IMAGE_NAME,
-                     # this is the model object 
+                     # this is the model object
                      models = [converted_model],
-                     image_config = image_config, 
+                     image_config = image_config,
                      workspace = ws)
 
 image.wait_for_creation(show_output = True)
