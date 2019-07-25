@@ -138,4 +138,10 @@ dmypy.json
 # Ignore all local history of files
 .history
 
+#Custom files
+/DeployContainerFromAML/config/deployment.json
+/aml_config/config.json
+/MachineLearning/src/azureStorage.py
+
+
 # End of https://www.gitignore.io/api/python,visualstudiocode
