@@ -58,7 +58,7 @@ class CameraClient():
             username for the camera.
         password : str
             password for the camera.
-        
+
         Yields
         ------
         CameraClient
@@ -77,7 +77,7 @@ class CameraClient():
     def __init__(self, connection):
         """
         The constructor for CameraClient class
-        
+
         Parameters
         ----------
         connection : IpcProvider object
@@ -97,7 +97,7 @@ class CameraClient():
     @contextmanager
     def get_inferences(self, inference_iterator=None):
         """
-        Inference generator for the application.
+        Inference generator for the application!
 
         This inference generator gives inferences from the VA metadata stream.
 
@@ -233,7 +233,7 @@ class CameraClient():
         ----------
         status : bool
             Set it True for enabling and False for disabling preview.
-        
+
         Returns
         -------
         bool
