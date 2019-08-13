@@ -12,7 +12,8 @@ cfg = __BASE
 
 # Settings used in Model.register()
 __BASE.MODEL_PATH = "MachineLearning/models/<Model Folder Name Here>"
-__BASE.MODEL_NAME = "<Model Folder Name Here>"
+__BASE.MODEL_NAME = "<Model Name Here>"
+__BASE.CONVERTED_MODEL_NAME = "<Model Name Here>"
 __BASE.MODEL_TAGS = {"Device": "peabody", "type": "mobilenetssd", "area": "iot", "version": "1.0"}
 __BASE.MODEL_DESCRIPTION = "<Generic Description of Model Here>"
 
@@ -28,7 +29,7 @@ __BASE.MODULE_NAME = "<Provide Module Name Here>"
 
 # Settings used in SnpeConverter.convert_tf_model()
 # In order to fill this in section, you will need to use Tensorboard to open your prebuilt tensorflow model
-# You will then need to identify the Input_Node and Output_Node required for the specific model. 
+# You will then need to identify the Input_Node and Output_Node required for the specific model.
 
 __BASE.MODEL_INPUT_NODE = ""
 __BASE.MODEL_INPUT_DIMS = ""

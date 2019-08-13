@@ -81,14 +81,14 @@ def print_inferences(hub_manager, camera, results=None):
     global IsTerminationSignalReceived
     print("")
     lastTime = time.time()
-    messageDelay = 3
+    messageDelay = 2
     for result in results:
         if time.time() - lastTime < messageDelay:
             continue
         else:
             lastTime = time.time()
         if result is not None and result.objects is not None and len(result.objects):
-            timestamp = time.time()
+            timestamp = lastTime
             #if timestamp:
                 #print("timestamp={}".format(timestamp))
             #else:
@@ -102,29 +102,38 @@ def print_inferences(hub_manager, camera, results=None):
                 w = object.position.width
                 h = object.position.height
                 imageLocation = azureStorage.dummyDict
-                alertFlag = "false"
+                helmetAlertFlag = "false"
+                objectTransportFlag = "false"
                 if object.confidence > 75:
-                    if object.label.lower().replace(" ", "") == "nohelmet":
-                        alertFlag = "true"
+
+                    #Module only captures image for helmet/nohelmet model
+                    normalizedLabel = object.label.lower().replace(" ", "")
+                    if normalizedLabel == "nohelmet":
+                        helmetAlertFlag = "true"
                         print("NO HELMET!...Taking picture")
                         imageLocation = capture_and_upload_image(camera)
                         print("new image Location: ", imageLocation)
                     
                     imageURL = imageLocation["imageURL"]
                     imagePath = imageLocation["imagePath"]
-                                        
+                    
+                    #Case: 2nd object detection model is active
+                    if normalizedLabel != "helmet" and normalizedLabel != "nohelmet":
+                        objectTransportFlag = "true"
+
+                    #Generic info about recognition object                
                     print("id={}".format(id))
                     print("label={}".format(label))
                     print("confidence={}".format(confidence))
                     print("Position(x,y,w,h)=({},{},{},{})".format(x, y, w, h))
                     print("imageURL={}, imagePath={}".format(imageURL, imagePath))
                                                                       
-                                                 
                     MSG_FORMAT = "{{\"id\": {},\"label\": \"{}\", \"confidence\": {}, \"timestamp\": {}, \"noHelmetAlert\": {}, \"device\": \"{}\", \"location\": \"Warehouse 1\", \"imageUrl\": \"{}\", \"imagePath\": \"{}\"}}"
-                    formattedMsg = MSG_FORMAT.format(str(id), str(label), str(confidence), str(timestamp), str(alertFlag), str(deviceID), str(imageURL), str(imagePath))
+                    formattedMsg = MSG_FORMAT.format(str(id), str(label), str(confidence), str(timestamp), str(helmetAlertFlag), str(deviceID), str(imageURL), str(imagePath))
                     print(formattedMsg)
                     propertiesDict = dict()
-                    propertiesDict["helmetAlertFlag"] = alertFlag
+                    propertiesDict["helmetAlertFlag"] = helmetAlertFlag
+                    propertiesDict["objectTransportFlag"] = objectTransportFlag
                     hub_manager.SendPropertisedMsgToCloud(formattedMsg, propertiesDict)
                     time.sleep(1)
                 
@@ -136,7 +145,7 @@ def print_inferences(hub_manager, camera, results=None):
             print('!!! SIGTERM signal is received  !!!')
             break
 
-
+#capture current frame and send frame to AzureBlobStorage
 def capture_and_upload_image(camera):
     imageDict = camera.captureimage()
     print("image Dict: ", imageDict)
@@ -144,6 +153,8 @@ def capture_and_upload_image(camera):
     filePath = imageDict["filePath"]
     pathDetails = azureStorage.uploadBlob(filePath,fileName)
     print("pathDetails: ", pathDetails)
+    #delete file from local storage
+    os.remove(filePath)
     return pathDetails
     
 # Handle SIGTERM signal when docker stops the current VisionSampleModule container

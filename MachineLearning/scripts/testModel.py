@@ -60,10 +60,16 @@ print(ws.name, ws.resource_group, ws.location, ws.subscription_id, sep = '\n')
 # ## Register Model
 
 #%%
+#Given a provided DLC model file, register the model on AML Workspace
+
 from azureml.core.model import Model
 print(str(current_dir))
 print("Model path : "+ str(cfg.MODEL_PATH))
-converted_model = Model(ws, name=cfg.CONVERTED_MODEL_NAME)
+converted_model = Model.register(model_path = cfg.MODEL_PATH,
+                       model_name = cfg.CONVERTED_MODEL_NAME,
+                       tags = cfg.MODEL_TAGS,
+                       description = cfg.MODEL_DESCRIPTION,
+                       workspace = ws)
 
 print('model information:')
 print(converted_model.name, converted_model.url, converted_model.version, converted_model.id, converted_model.created_time)
