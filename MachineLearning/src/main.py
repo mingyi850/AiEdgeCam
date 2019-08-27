@@ -36,8 +36,8 @@ def main(protocol=None):
         utility.transferdlc()
 
         print(camera_client.configure_preview(display_out=1))
-
         camera_client.toggle_preview(True)
+
         time.sleep(15)
         rtsp_ip = utility.getWlanIp()
         rtsp_stream_addr = "rtsp://" + rtsp_ip + ":8900/live"
@@ -49,8 +49,8 @@ def main(protocol=None):
         print("Completed configure overlay in main")
         camera_client.toggle_overlay(True)
         print("Completed toggle_overlay in main")
-        firstImage = camera_client.captureimage()
-        print("First Image from main connection: ", firstImage)
+        #firstImage = camera_client.captureimage()
+        #print("First Image from main connection: ", firstImage)
         try: #uses instance of camera_client, to start reading stream of metadata and parse into data.
             with camera_client.get_inferences() as results:
                 print_inferences(hub_manager, camera_client, results)
@@ -104,7 +104,14 @@ def print_inferences(hub_manager, camera, results=None):
                 imageLocation = azureStorage.dummyDict
                 helmetAlertFlag = "false"
                 objectTransportFlag = "false"
-                if object.confidence > 75:
+
+                #Generic info about recognition object                
+                print("id={}".format(id))
+                print("label={}".format(label))
+                print("confidence={}".format(confidence))
+                print("Position(x,y,w,h)=({},{},{},{})".format(x, y, w, h))
+                
+                if object.confidence > 50:
 
                     #Module only captures image for helmet/nohelmet model
                     normalizedLabel = object.label.lower().replace(" ", "")
@@ -121,13 +128,6 @@ def print_inferences(hub_manager, camera, results=None):
                     if normalizedLabel != "helmet" and normalizedLabel != "nohelmet":
                         objectTransportFlag = "true"
 
-                    #Generic info about recognition object                
-                    print("id={}".format(id))
-                    print("label={}".format(label))
-                    print("confidence={}".format(confidence))
-                    print("Position(x,y,w,h)=({},{},{},{})".format(x, y, w, h))
-                    print("imageURL={}, imagePath={}".format(imageURL, imagePath))
-                                                                      
                     MSG_FORMAT = "{{\"id\": {},\"label\": \"{}\", \"confidence\": {}, \"timestamp\": {}, \"noHelmetAlert\": {}, \"device\": \"{}\", \"location\": \"Warehouse 1\", \"imageUrl\": \"{}\", \"imagePath\": \"{}\"}}"
                     formattedMsg = MSG_FORMAT.format(str(id), str(label), str(confidence), str(timestamp), str(helmetAlertFlag), str(deviceID), str(imageURL), str(imagePath))
                     print(formattedMsg)
@@ -137,8 +137,8 @@ def print_inferences(hub_manager, camera, results=None):
                     hub_manager.SendPropertisedMsgToCloud(formattedMsg, propertiesDict)
                     time.sleep(1)
                 
-            else:
-                print("No results for this frame")
+        else:
+            print("No results for this frame")
 
         # Handle SIGTERM signal
         if (IsTerminationSignalReceived == True):

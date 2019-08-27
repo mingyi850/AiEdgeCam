@@ -119,17 +119,21 @@ class CameraClient():
 
         """
         if not self.preview_running:
+            print("preview not started")
             raise EOFError("preview not started")
 
         if not self.vam_running:
+            print("VAM not started")
             raise EOFError("VAM not started")
 
         if inference_iterator is None:
             inference_iterator = VideoInferenceIterator()
         try:
             if self.vam_url == "":
+                print("first vam path debug (camera)")
                 self._get_vam_info()
             if "0.0.0.0" in self.vam_url:
+                print("alternate vam path debug (camera)")
                 s_idx = self.vam_url.index('0')
                 start = self.vam_url[:s_idx]
                 e_idx = s_idx + len("0.0.0.0")
@@ -137,6 +141,7 @@ class CameraClient():
                 self.vam_url = start + "127.0.0.1" + end
             yield inference_iterator.start(self.vam_url)
         finally:
+            print("stopping inference iterator debug (camera)")
             inference_iterator.stop()
 
     def _setup_model(self, model_config):

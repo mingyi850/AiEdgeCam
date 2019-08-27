@@ -8,7 +8,7 @@
     "GreenMean":117,
     "RedMean":123,
     "TargetFPS":15,
-    "ConfThreshold":0.5,
+    "ConfThreshold":0.7,
     "DLC_NAME":"model.dlc",
     "LABELS_NAME":"coco_labels.txt",
     "InputLayers":"Preprocessor/sub:0",

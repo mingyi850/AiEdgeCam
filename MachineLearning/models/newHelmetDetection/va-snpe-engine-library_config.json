@@ -8,7 +8,7 @@
   "BlueMean":0,
   "GreenMean":0,
   "RedMean":0,
-  "TargetFPS":10,
+  "TargetFPS":30,
   "ConfThreshold":0.5,
   "DLC_NAME":"model.dlc",
   "LABELS_NAME":"labels.txt",
