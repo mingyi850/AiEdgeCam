@@ -11,7 +11,8 @@ The Vision AI Dev Kit is a camera developed by Qualcomm which includes its propr
 3. 	High resilience despite low internet connectivity
 
 This guide will teach you how to setup a demo which features:
-1.  Workplace Safety AI
+
+### 1.  Workplace Safety AI
 
 This demo imagines a workspace environment where a workspace is monitored by AI Cameras to detect safety violations. When a user is caught entering the work-zone without a helmet, the camera detects it, his picture is taken, and a notification is sent to a supervisor.
 
@@ -22,7 +23,7 @@ This demo imagines a workspace environment where a workspace is monitored by AI 
 
     This demo can also be used to show the ease of use of PowerApps to build front-end applications and interfaces from existing data (using data collected from the camera stored in the CDS entity). 
 
-2. 	“Plug and Play” Module switching
+### 2. 	“Plug and Play” Module switching
 This demo shows the capabilities of IOT Hub in the management and deployment of modules to Edge devices, addressing concerns with the scalability of Edge solutions. Clients will be able to see a visual representation of how a module is deployed at scale to several devices via the azure portal.  
 
 ## Setup Visual Studio Code Development Environment
