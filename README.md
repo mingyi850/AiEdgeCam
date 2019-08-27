@@ -30,7 +30,7 @@ This demo shows the capabilities of IOT Hub in the management and deployment of 
 
 
 # Implementation Details:
-Open File [Setup Guide and Documentation]("Documentation.docx") for step by step implementation guide
+See the [Setup Guide and Documentation]("Documentation.docx") for step by step implementation guide
 
 
 
