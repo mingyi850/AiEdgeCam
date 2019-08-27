@@ -139,10 +139,10 @@ dmypy.json
 .history
 
 #Custom files
-/DeployContainerFromAML/config/deployment.json
-/aml_config/config.json
-/MachineLearning/src/azureStorage.py
-/MachineLearning/scripts/model_configs/current_config.py
+AiDevKit/DeployContainerFromAML/config/deployment.json
+AiDevKit/aml_config/config.json
+AiDevKit/MachineLearning/src/azureStorage.py
+AiDevKit/MachineLearning/scripts/model_configs/current_config.py
 
 
 # End of https://www.gitignore.io/api/python,visualstudiocode

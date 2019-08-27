@@ -30,7 +30,7 @@ This demo shows the capabilities of IOT Hub in the management and deployment of 
 
 
 # Implementation Details:
-Open File [Word Doc]("Documentation for Ai Edge Camera.docx") for step by step implementation guide
+Open File [Word Doc]("Documentation.docx") for step by step implementation guide
 
 
 
