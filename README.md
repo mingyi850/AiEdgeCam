@@ -2,6 +2,8 @@
 
 This is a sample showing how to use Azure Machine Learning SDK and Azure IoT Edge to convert a model, build a container image, and deploy a model image to Vision AI Developer Kit in Visual Studio Code.
 
+![Architecture Diagram](Images/ArchitectureDiagram.jpg)
+
 ## Introduction
 
 The Vision AI Dev Kit is a camera developed by Qualcomm which includes its proprietary Neural Processing Engine, the Snapdragon Neural Processing Engine (SNPE). It allows users to develop and showcase use-cases for IOT Edge solutions which are integral in environments or situations which require:
@@ -27,9 +29,8 @@ This demo imagines a workspace environment where a workspace is monitored by AI 
 This demo shows the capabilities of IOT Hub in the management and deployment of modules to Edge devices, addressing concerns with the scalability of Edge solutions. Clients will be able to see a visual representation of how a module is deployed at scale to several devices via the azure portal.  
 
 
-#Implementation Details:
-Open File "Documentation for Ai Edge Camera.docx" for step by step implementation guide
+# Implementation Details:
+Open File [Word Doc]("Documentation for Ai Edge Camera.docx") for step by step implementation guide
 
-#Demo Architecture
-![Screenshot](Images/ArchitectureDiagram.jpg)
+
 
