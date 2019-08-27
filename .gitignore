@@ -142,6 +142,7 @@ dmypy.json
 /DeployContainerFromAML/config/deployment.json
 /aml_config/config.json
 /MachineLearning/src/azureStorage.py
+/MachineLearning/scripts/model_configs/current_config.py
 
 
 # End of https://www.gitignore.io/api/python,visualstudiocode
